@@ -24,7 +24,7 @@ export default function Footer() {
 
                     <div className="flex items-center gap-2 text-sm text-gray-400">
                         <FontAwesomeIcon icon={faPhone} className="w-4 h-4 text-gray-300 flex-shrink-0" />
-                        <span>+977 9800000000</span>
+                        <span>+977 9824427455</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-sm text-gray-400">

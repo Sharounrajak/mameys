@@ -17,7 +17,7 @@ export default function AboutPage() {
                             FOUNDER AND LEAD ARTIST
                         </p>
 
-                        <div className="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed mb-10">
+                        <div className="space-y-4 text-gray-800 text-sm sm:text-base leading-relaxed mb-10">
                             <p>
                                 With a passion for precision, style, and modern grooming, Mr. Sagar is dedicated to helping every client look and feel their best. Combining expert barbering skills with a keen eye for detail, each haircut is carefully tailored to suit the client's personality, style, and individual preferences.
                             </p>

@@ -1,12 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return(
     <div className="w-full bg-white text-black">
-      <Navbar />
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -19,10 +16,10 @@ export default function Home() {
             <p className="text-gray-600 text-base md:text-lg mb-8 max-w-2xl leading-relaxed">
               Discover a fresh approach to hair care and styling. Whether you're after a bold transformation or a simple refresh, we're here to make every visit feel exceptional.
             </p>
-           
+          
             <Link
               href="/book"
-              className="inline-block bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-medium rounded-md hover:bg-gray-300 transition"
+              className="inline-block bg-black text-white px-6 py-2.5 text-sm font-medium rounded-md hover:bg-gray-600 transition"
             >
               Book an Appointment
             </Link>
@@ -186,7 +183,6 @@ export default function Home() {
         </section>
 
         </main>
-        <Footer />
     </div>
   );
 }

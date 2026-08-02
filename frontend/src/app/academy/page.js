@@ -58,7 +58,7 @@ export default function AcademyPage() {
                     <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
                         Turn Your Passion Into A <span className="text-black">Professional Career</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                    <p className="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl mx-auto">
                         Hands-on training, industry-certified mentorship, and real salon experience to help you master modern hair styling.
                     </p>
                     <div className="flex justify-center gap-4">
@@ -75,7 +75,7 @@ export default function AcademyPage() {
             {/* Why Choose Us */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="grid md:grid-cols-3 gap-8 text-center">
-                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-300 border-gray-300">
                         <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
                             <GraduationCap className="w-6 h-6" />
                         </div>
@@ -85,7 +85,7 @@ export default function AcademyPage() {
                         </p>
                     </div>
 
-                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-300 border-gray-300">
                         <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
                             <Award className="w-6 h-6" />
                         </div>
@@ -95,7 +95,7 @@ export default function AcademyPage() {
                         </p>
                     </div>
 
-                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-300 border-gray-300">
                         <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
                             <Briefcase className="w-6 h-6" />
                         </div>
@@ -181,7 +181,7 @@ export default function AcademyPage() {
             <section className="bg-white text-black py-16 mt-12">
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <h2 className="text-2xl md:text-3xl font-bold mb-4">Have Questions About Admissions?</h2>
-                    <p className="text-gray-400 mb-8">
+                    <p className="text-gray-500 mb-8">
                         Speak directly with our Academy instructors to find out which program best suits your career goals.
                     </p>
                     <a

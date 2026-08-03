@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 
 export default function Home() {
   return(
@@ -129,12 +130,12 @@ export default function Home() {
               </div>
               
               <div className="mt-4">
-                <Link
-                  href="/contact"
-                  className="inline-block bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-medium rounded-md hover:bg-gray-300 transition"
-                >
-                  Learn more
-                </Link>
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Mameys+Hair+Studio+Butwal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex inline-center gap-2 bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-medium rounded-md hover:bg-gray-300 transition"
+                >Get Directions</a>
               </div>
             </div>
 
@@ -159,18 +160,16 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-          {/* Added 'group' to the parent div so the child text changes color on hover */}
-          <div className="group p-8 border-gray-200 rounded-md bg-white hover:bg-black hover:text-white transition-colors">
+          <div className="group p-8 border-gray-200 rounded-md bg-white hover:bg-gray-500 hover:text-white transition-colors">
             <h3 className="text-2xl font-bold tracking-tight mb-3">
               Friendly Environment
             </h3>
-            {/* Added 'group-hover:text-gray-300' so the text is readable when the background turns black */}
             <p className="text-gray-600 leading-relaxed group-hover:text-gray-300 transition-colors text-base">
               Step into a warm, welcoming space where you can relax, unwind, and enjoy your time. Our team is dedicated to making every client feel comfortable and valued from the moment they walk through the door.
             </p>
           </div>
 
-          <div className="group p-8 border-gray-200 rounded-md bg-white hover:bg-black hover:text-white transition-colors">
+          <div className="group p-8 border-gray-200 rounded-md bg-white hover:bg-gray-500 hover:text-white transition-colors">
             <h3 className="text-2xl font-bold tracking-tight mb-3">
               Style For All
             </h3>

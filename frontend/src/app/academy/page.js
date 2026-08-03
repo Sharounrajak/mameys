@@ -52,9 +52,6 @@ export default function AcademyPage() {
             {/* Hero Section */}
             <section className="bg-white text-black py-20 px-4 text-center relative overflow-hidden">
                 <div className="max-w-4xl mx-auto">
-                    <span className="inline-block bg-neutral-800 text-gray-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-neutral-700">
-                        Mamey's Hair Academy
-                    </span>
                     <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
                         Turn Your Passion Into A <span className="text-black">Professional Career</span>
                     </h1>
@@ -75,35 +72,64 @@ export default function AcademyPage() {
             {/* Why Choose Us */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="grid md:grid-cols-3 gap-8 text-center">
-                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-300 border-gray-300">
-                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
+
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 hover:-translate-y-1">
+                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 animate-fade-up">
                             <GraduationCap className="w-6 h-6" />
                         </div>
-                        <h3 className="font-bold text-lg mb-2">Hands-on Practice</h3>
+
+                        <h3 className="font-bold text-lg mb-2 animate-type-line [animation-delay:200ms]">
+                            Hands-on Practice
+                        </h3>
+
                         <p className="text-gray-600 text-sm">
-                            Train on live models with guidance from active senior salon stylists.
+                            <span className="animate-type-line [animation-delay:850ms]">
+                                Train on live models with guidance
+                            </span>
+                            <span className="animate-type-line [animation-delay:1500ms]">
+                                from active senior salon stylists.
+                            </span>
                         </p>
                     </div>
 
-                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-300 border-gray-300">
-                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 hover:-translate-y-1">
+                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 animate-fade-up [animation-delay:150ms]">
                             <Award className="w-6 h-6" />
                         </div>
-                        <h3 className="font-bold text-lg mb-2">Certified Programs</h3>
+
+                        <h3 className="font-bold text-lg mb-2 animate-type-line [animation-delay:350ms]">
+                            Certified Programs
+                        </h3>
+
                         <p className="text-gray-600 text-sm">
-                            Receive an official Mamey's Hair Studio Academy certification upon graduation.
+                            <span className="animate-type-line [animation-delay:1000ms]">
+                                Receive an official Mamey's Hair Studio
+                            </span>
+                            <span className="animate-type-line [animation-delay:1650ms]">
+                                Academy certification upon graduation.
+                            </span>
                         </p>
                     </div>
 
-                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-300 border-gray-300">
-                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 hover:-translate-y-1">
+                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 animate-fade-up [animation-delay:300ms]">
                             <Briefcase className="w-6 h-6" />
                         </div>
-                        <h3 className="font-bold text-lg mb-2">Career Support</h3>
+
+                        <h3 className="font-bold text-lg mb-2 animate-type-line [animation-delay:500ms]">
+                            Career Support
+                        </h3>
+
                         <p className="text-gray-600 text-sm">
-                            Top graduates get placement opportunities directly inside Mamey's Studio.
+                            <span className="animate-type-line [animation-delay:1150ms]">
+                                Top graduates get placement opportunities
+                            </span>
+                            <span className="animate-type-line [animation-delay:1800ms]">
+                                directly inside Mamey's Studio.
+                            </span>
                         </p>
                     </div>
+
                 </div>
             </section>
 

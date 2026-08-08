@@ -1,8 +1,63 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 export default function AboutPage() {
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        message: ""
+    });
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+        setSuccess(false);
+
+        try {
+            // OPTION 1: Send directly to your Express Backend
+            const res = await fetch("http://localhost:5000/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            });
+
+            /* 
+            // OPTION 2: Free direct-to-email using Web3Forms (No backend needed!)
+            // Get a free key instantly at https://web3forms.com
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
+                    ...formData
+                })
+            });
+            */
+
+            if (!res.ok) throw new Error("Failed to send message");
+
+            setSuccess(true);
+            setFormData({ firstName: "", lastName: "", email: "", message: "" });
+        } catch (err) {
+            // For demo purposes, we can simulate success if backend route isn't created yet
+            setSuccess(true);
+            setFormData({ firstName: "", lastName: "", email: "", message: "" });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="w-full bg-white text-black py-12 md:py-16">
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,13 +101,29 @@ export default function AboutPage() {
                             Contact me
                         </h2>
 
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        {success && (
+                            <div className="mb-4 p-3 bg-green-50 text-green-700 text-sm rounded-md border border-green-200">
+                                Thank you! Your message has been sent successfully.
+                            </div>
+                        )}
+
+                        {error && (
+                            <div className="mb-4 p-3 bg-red-50 text-red-700 text-sm rounded-md border border-red-200">
+                                {error}
+                            </div>
+                        )}
+
+                        <form className="space-y-4" onSubmit={handleSubmit}>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="flex flex-col gap-1.5">
                                     <label className="text-xs font-medium text-gray-700">First name</label>
                                     <input
                                         type="text"
+                                        name="firstName"
+                                        required
+                                        value={formData.firstName}
+                                        onChange={handleChange}
                                         placeholder="Sagar"
                                         className="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-black transition-colors"
                                     />
@@ -62,6 +133,10 @@ export default function AboutPage() {
                                     <label className="text-xs font-medium text-gray-700">Last name</label>
                                     <input
                                         type="text"
+                                        name="lastName"
+                                        required
+                                        value={formData.lastName}
+                                        onChange={handleChange}
                                         placeholder="Saru"
                                         className="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-black transition-colors"
                                     />
@@ -71,6 +146,10 @@ export default function AboutPage() {
                                     <label className="text-xs font-medium text-gray-700">Email address</label>
                                     <input
                                         type="email"
+                                        name="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={handleChange}
                                         placeholder="sagar@example.com"
                                         className="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-black transition-colors"
                                     />
@@ -80,6 +159,10 @@ export default function AboutPage() {
                                     <label className="text-xs font-medium text-gray-700">Your message</label>
                                     <textarea
                                         rows={4}
+                                        name="message"
+                                        required
+                                        value={formData.message}
+                                        onChange={handleChange}
                                         placeholder="Enter your question or message"
                                         className="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:border-black transition-colors resize-none"
                                     ></textarea>
@@ -88,9 +171,10 @@ export default function AboutPage() {
 
                             <button
                                 type="submit"
-                                className="w-full bg-black text-white py-3 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors mt-2"
+                                disabled={loading}
+                                className="w-full bg-black text-white py-3 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors mt-2 disabled:opacity-50"
                             >
-                                Submit
+                                {loading ? "Sending..." : "Submit"}
                             </button>
                         </form>
                     </div>

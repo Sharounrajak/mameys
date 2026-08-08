@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
     Lock,
     Mail,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 
 export default function AdminLoginPage() {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -26,16 +28,50 @@ export default function AdminLoginPage() {
         setErrorMessage("");
         setIsLoading(true);
 
-        setTimeout(() => {
-            if (formData.password.length < 6) {
-                setErrorMessage("Invalid credentials or unauthorized role assignment.");
-                setIsLoading(false);
-                return;
+        try {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+            
+           const response = await fetch(`${API_URL}/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Invalid credentials");
             }
 
-            console.log("Authenticated Admin:", formData);
+            // Security Check: Block regular customers from accessing the Admin Portal
+            if (data.role !== "admin") {
+                throw new Error("Access Denied: Customer accounts cannot access the Admin Portal.");
+            }
+
+            // Save JWT Token & User Info to localStorage
+            localStorage.setItem("token", data.token);
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    _id: data._id,
+                    name: data.name,
+                    email: data.email,
+                    role: data.role,
+                })
+            );
+
+            // Redirect to Admin Dashboard
+            router.push("/admin/dashboard");
+        } catch (err) {
+            setErrorMessage(err.message);
+        } finally {
             setIsLoading(false);
-        }, 1200);
+        }
     };
 
     return (
@@ -66,10 +102,7 @@ export default function AdminLoginPage() {
                     </p>
                 </div>
 
-                {/* --- LIQUID GLASS CARD --- 
-                    Change bg-white/45 below to bg-white/25 for more transparency 
-                    or bg-white/70 for more opacity 
-                */}
+                {/* --- LIQUID GLASS CARD --- */}
                 <div className="relative overflow-hidden bg-white/45 backdrop-blur-xl backdrop-saturate-150 border border-white/80 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.06)]">
 
                     {/* Specular Liquid Edge Highlight */}

@@ -22,6 +22,7 @@ export default function CartDrawer() {
   const [formData, setFormData] = useState({
     customerName: '',
     customerPhone: '',
+    customerEmail: '',
     customerAddress: '',
     paymentMethod: 'COD',
   });
@@ -77,24 +78,30 @@ export default function CartDrawer() {
     submitOrderToBackend('PAID');
   };
 
-  // Final API call to Backend
+  // Final API call to Backend// Final API call to Backend
   const submitOrderToBackend = async (paymentStatus) => {
     setLoading(true);
 
     try {
+      // 🚨 MAPPED TO MATCH BACKEND SCHEMA EXACTLY
       const orderPayload = {
         customerName: formData.customerName,
+        customerEmail: formData.customerEmail || 'no-email@provided.com', // Added email
         customerPhone: formData.customerPhone,
-        customerAddress: formData.customerAddress,
+        shippingAddress: formData.customerAddress, // mapped from customerAddress
         paymentMethod: formData.paymentMethod,
-        paymentStatus,
-        items: cart.map((item) => ({
-          productId: item._id,
+        orderStatus: paymentStatus === 'PAID' ? 'Processing' : 'Pending', // Optional status handling
+        totalAmount: cartTotal, // Added missing total
+        orderItems: cart.map((item) => ({ // Changed 'items' to 'orderItems'
+          product: item._id, // Backend expects 'product' as the ID field
+          name: item.name,
           quantity: item.quantity,
+          price: item.price
         })),
       };
 
-      const res = await fetch('http://localhost:5000/api/orders', {
+      // Changed localhost to 127.0.0.1 to prevent the infinite loading bug we fixed earlier!
+      const res = await fetch('http://127.0.0.1:5000/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderPayload),
@@ -114,7 +121,6 @@ export default function CartDrawer() {
       setLoading(false);
     }
   };
-
   return (
     <>
       {/* Backdrop */}
@@ -279,6 +285,22 @@ export default function CartDrawer() {
                     className="w-full border border-gray-400 p-2.5 rounded text-sm font-semibold text-gray-900 focus:outline-none focus:border-black placeholder-gray-500"
                     placeholder="e.g. Traffic Chowk, Butwal"
                   ></textarea>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-900 uppercase mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.customerEmail}
+                    onChange={(e) =>
+                      setFormData({ ...formData, customerEmail: e.target.value })
+                    }
+                    className="w-full border border-gray-400 p-2.5 rounded text-sm font-semibold text-gray-900 focus:outline-none focus:border-black placeholder-gray-500"
+                    placeholder="e.g. sagar@example.com"
+                  />
                 </div>
 
                 <div>

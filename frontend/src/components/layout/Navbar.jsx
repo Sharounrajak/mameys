@@ -16,7 +16,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Navigation (Hidden on mobile, visible on md screens and up) */}
-                <nav className="hidden md:flex gap-6 font-medium">
+                <nav className="hidden md:flex gap-6 font-semibold">
                     <Link href="/" className="hover:text-gray-600 transition-colors">
                         Home
                     </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
 
             {/* Mobile Dropdown Menu */}
             {isOpen && (
-                <div className="md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-6 flex flex-col gap-3 font-medium">
+                <div className="md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-6 flex flex-col gap-3 font-semibold">
                     <Link
                         href="/"
                         onClick={() => setIsOpen(false)}

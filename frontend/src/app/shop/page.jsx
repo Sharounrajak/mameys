@@ -49,9 +49,9 @@ export default function ShopPage() {
     <div className="bg-white min-h-screen">
       {/* SHOP HEADER */}
       <div className="bg-black text-white py-16 text-center px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Studio Shop</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Mamey’s Essentials</h1>
         <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-          Professional-grade grooming products, curated by our master barbers.
+          Professional Products. Real Results.
         </p>
       </div>
 

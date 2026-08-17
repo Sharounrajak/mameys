@@ -2,6 +2,12 @@
 
 import { useState } from 'react';
 
+import {
+  Calendar1,
+  WalletMinimal,
+  Scissors
+} from 'lucide-react';
+
 // Studio Services List
 const SERVICES = [
   { id: '1', name: "Signature Haircut & Styling", duration: '45 mins', price: 800, desc: 'Consultation, scalp massage, precision cut, and wash.' },
@@ -11,8 +17,8 @@ const SERVICES = [
 ];
 
 const TIME_SLOTS = [
-  '10:00 AM', '11:00 AM', '12:00 PM', 
-  '01:30 PM', '02:30 PM', '03:30 PM', 
+  '10:00 AM', '11:00 AM', '12:00 PM',
+  '01:30 PM', '02:30 PM', '03:30 PM',
   '04:30 PM', '05:30 PM', '06:30 PM'
 ];
 
@@ -53,46 +59,46 @@ export default function BookingWizard() {
   const datesList = getAvailableDates();
 
   // Submit appointment to Backend API
- // Find this inside handleFinalBooking in BookingWizard.jsx:
-const handleFinalBooking = async (paidOnline = false) => {
-  setLoading(true);
-  try {
-    const bookingPayload = {
-      customerName: customer.name,
-      customerPhone: customer.phone,
-      customerEmail: customer.email,
-      
-      // ⬇️ UPDATED FIELD NAMES TO MATCH BACKEND SCHEMA
-      service: selectedService.name,          // Changed from serviceName
-      servicePrice: selectedService.price,
-      appointmentDate: selectedDate,          // Changed from bookingDate
-      timeSlot: selectedTime,                 // Changed from bookingTime
-      
-      paymentMethod: paymentMethod,
-      paymentStatus: paidOnline ? 'PAID' : 'PENDING',
-    };
+  // Find this inside handleFinalBooking in BookingWizard.jsx:
+  const handleFinalBooking = async (paidOnline = false) => {
+    setLoading(true);
+    try {
+      const bookingPayload = {
+        customerName: customer.name,
+        customerPhone: customer.phone,
+        customerEmail: customer.email,
 
-    const res = await fetch('http://localhost:5000/api/appointments', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bookingPayload),
-    });
+        // ⬇️ UPDATED FIELD NAMES TO MATCH BACKEND SCHEMA
+        service: selectedService.name,          // Changed from serviceName
+        servicePrice: selectedService.price,
+        appointmentDate: selectedDate,          // Changed from bookingDate
+        timeSlot: selectedTime,                 // Changed from bookingTime
 
-    const data = await res.json();
+        paymentMethod: paymentMethod,
+        paymentStatus: paidOnline ? 'PAID' : 'PENDING',
+      };
 
-    if (!res.ok) throw new Error(data.message || 'Booking failed');
+      const res = await fetch('http://localhost:5000/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingPayload),
+      });
 
-    setBookingRef(data.appointment?._id || 'APT-' + Math.floor(100000 + Math.random() * 900000));
-    setStep(4); // Move to instant confirmation screen
-  } catch (err) {
-    alert(`Booking error: ${err.message}`);
-  } finally {
-    setLoading(false);
-  }
-};
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || 'Booking failed');
+
+      setBookingRef(data.appointment?._id || 'APT-' + Math.floor(100000 + Math.random() * 900000));
+      setStep(4); // Move to instant confirmation screen
+    } catch (err) {
+      alert(`Booking error: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="max-w-3xl mx-auto bg-white border border-gray-300 rounded-lg shadow-sm p-6 md:p-10">
-      
+
       {/* --- PROGRESS STEP INDICATOR --- */}
       {step < 4 && (
         <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
@@ -103,9 +109,8 @@ const handleFinalBooking = async (paidOnline = false) => {
           ].map((s) => (
             <div key={s.num} className="flex items-center gap-2 md:gap-3">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                  step >= s.num ? 'bg-black text-white' : 'bg-gray-200 text-gray-800'
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= s.num ? 'bg-black text-white' : 'bg-gray-200 text-gray-800'
+                  }`}
               >
                 {s.num}
               </div>
@@ -136,11 +141,10 @@ const handleFinalBooking = async (paidOnline = false) => {
                 <div
                   key={srv.id}
                   onClick={() => setSelectedService(srv)}
-                  className={`p-5 rounded-md border cursor-pointer transition-all ${
-                    isSelected
+                  className={`p-5 rounded-md border cursor-pointer transition-all ${isSelected
                       ? 'border-black bg-gray-50 ring-1 ring-black'
                       : 'border-gray-300 hover:border-gray-500 bg-white'
-                  }`}
+                    }`}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-bold text-gray-900 text-lg">{srv.name}</h3>
@@ -188,11 +192,10 @@ const handleFinalBooking = async (paidOnline = false) => {
                   <button
                     key={d.fullDate}
                     onClick={() => setSelectedDate(d.fullDate)}
-                    className={`flex-1 min-w-[75px] p-3 rounded-md border text-center transition-all ${
-                      isSelected
+                    className={`flex-1 min-w-[75px] p-3 rounded-md border text-center transition-all ${isSelected
                         ? 'border-black bg-black text-white'
                         : 'border-gray-300 bg-white text-gray-900 hover:border-black'
-                    }`}
+                      }`}
                   >
                     <p className="text-xs font-bold uppercase">{d.dayName}</p>
                     <p className="text-xl font-bold">{d.dayNum}</p>
@@ -214,11 +217,10 @@ const handleFinalBooking = async (paidOnline = false) => {
                     key={time}
                     type="button"
                     onClick={() => setSelectedTime(time)}
-                    className={`py-3 px-4 rounded-md border font-bold text-sm transition-all ${
-                      isSelected
+                    className={`py-3 px-4 rounded-md border font-bold text-sm transition-all ${isSelected
                         ? 'border-black bg-black text-white'
                         : 'border-gray-300 bg-white text-gray-900 hover:border-black'
-                    }`}
+                      }`}
                   >
                     {time}
                   </button>
@@ -231,7 +233,7 @@ const handleFinalBooking = async (paidOnline = false) => {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="text-gray-900 font-bold text-sm underline hover:text-black"
+              className="text-black font-bold text-sm hover:text-gray-600"
             >
               ← Back
             </button>
@@ -323,17 +325,35 @@ const handleFinalBooking = async (paidOnline = false) => {
               </div>
 
               {/* Summary Box */}
-              <div className="bg-gray-100 border border-gray-300 p-4 rounded-md space-y-1 text-sm font-semibold text-gray-900 mt-4">
-                <p>💈 <strong className="text-black">Service:</strong> {selectedService.name} (Rs. {selectedService.price})</p>
-                <p>📅 <strong className="text-black">Date & Time:</strong> {selectedDate} at {selectedTime}</p>
-                <p>💳 <strong className="text-black">Payment:</strong> {paymentMethod === 'STUDIO' ? 'Pay at Studio' : `Prepay via ${paymentMethod}`}</p>
+              <div className="bg-gray-100 border border-gray-300 p-4 rounded-md space-y-2 text-sm font-semibold text-gray-900 mt-4">
+
+                <p className="flex items-center gap-2">
+                  <span> <Scissors className="w-4 h-4 shrink=0"/> </span>
+                  <strong className="text-black">Service:</strong>
+                  {selectedService.name} (Rs. {selectedService.price})
+                </p>
+
+                <p className="flex items-center gap-2">
+                  <Calendar1 className="w-4 h-4 shrink-0" />
+                  <strong className="text-black">Date & Time:</strong>
+                  {selectedDate} at {selectedTime}
+                </p>
+
+                <p className="flex items-center gap-2">
+                  <WalletMinimal className="w-4 h-4 shrink-0" />
+                  <strong className="text-black">Payment:</strong>
+                  {paymentMethod === 'STUDIO'
+                    ? 'Pay at Studio'
+                    : `Prepay via ${paymentMethod}`}
+                </p>
+
               </div>
 
               <div className="pt-6 border-t border-gray-200 flex justify-between items-center">
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="text-gray-900 font-bold text-sm underline hover:text-black"
+                  className="text-black font-bold text-sm hover:text-gray-600"
                 >
                   ← Back
                 </button>
@@ -358,9 +378,8 @@ const handleFinalBooking = async (paidOnline = false) => {
               className="space-y-4"
             >
               <div
-                className={`p-4 rounded-md text-white font-bold flex items-center justify-between ${
-                  paymentMethod === 'eSewa' ? 'bg-[#60BB46]' : 'bg-[#5C2D91]'
-                }`}
+                className={`p-4 rounded-md text-white font-bold flex items-center justify-between ${paymentMethod === 'eSewa' ? 'bg-[#60BB46]' : 'bg-[#5C2D91]'
+                  }`}
               >
                 <span className="text-xl tracking-wide uppercase">{paymentMethod} Gateway</span>
                 <span className="text-xs bg-white/20 px-2 py-1 rounded">Secure Gateway</span>
@@ -397,15 +416,14 @@ const handleFinalBooking = async (paidOnline = false) => {
                 <button
                   type="button"
                   onClick={() => setPaymentSubStep('DETAILS')}
-                  className="text-xs font-bold text-gray-800 underline"
+                  className="text-xs font-bold text-black hover:text-gray-600"
                 >
                   ← Change Method
                 </button>
                 <button
                   type="submit"
-                  className={`px-6 py-2.5 rounded-md font-bold text-sm text-white ${
-                    paymentMethod === 'eSewa' ? 'bg-[#60BB46]' : 'bg-[#5C2D91]'
-                  }`}
+                  className={`px-6 py-2.5 rounded-md font-bold text-sm text-white ${paymentMethod === 'eSewa' ? 'bg-[#60BB46]' : 'bg-[#5C2D91]'
+                    }`}
                 >
                   Send OTP Code
                 </button>

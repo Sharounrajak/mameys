@@ -18,7 +18,7 @@ export default function AcademyPage() {
     const [error, setError] = useState(null);
 
     // Phone number for WhatsApp inquiries
-    const adminPhone = "9779824427455";
+    const adminPhone = "+977 9824427455";
 
     useEffect(() => {
         const fetchCourses = async () => {

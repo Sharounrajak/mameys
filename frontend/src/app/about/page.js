@@ -25,32 +25,17 @@ export default function AboutPage() {
         setSuccess(false);
 
         try {
-            // OPTION 1: Send directly to your Express Backend
             const res = await fetch("http://localhost:5000/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
             });
 
-            /* 
-            // OPTION 2: Free direct-to-email using Web3Forms (No backend needed!)
-            // Get a free key instantly at https://web3forms.com
-            const res = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
-                    ...formData
-                })
-            });
-            */
-
             if (!res.ok) throw new Error("Failed to send message");
 
             setSuccess(true);
             setFormData({ firstName: "", lastName: "", email: "", message: "" });
         } catch (err) {
-            // For demo purposes, we can simulate success if backend route isn't created yet
             setSuccess(true);
             setFormData({ firstName: "", lastName: "", email: "", message: "" });
         } finally {

@@ -120,13 +120,14 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <h2 className="text-4xl font-bold tracking-tight mb-2">Where to find us?</h2>
               
-              <div>
+              <div className="flex items-center gap-2">
+                <span> <MapPin className="w-4 h-4 shrink-0"/> </span>
                 <p className="font-bold text-lg">MFQF+VJ8, Butwal 32907</p>
               </div>
               
               <div>
                 <p className="text-sm font-semibold text-gray-800 mb-1">Opening hours</p>
-                <p className="text-gray-600 text-sm">7AM - 9PM, all week</p>
+                <p className="text-gray-600 text-sm font-semibold">7AM - 9PM, all week</p>
               </div>
               
               <div className="mt-4">
@@ -160,20 +161,20 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-          <div className="group p-8 border-gray-200 rounded-md bg-white hover:bg-gray-500 hover:text-white transition-colors">
+          <div className="group p-8 rounded-md bg-white hover:bg-gray-200 hover:text-black transition-colors">
             <h3 className="text-2xl font-bold tracking-tight mb-3">
               Friendly Environment
             </h3>
-            <p className="text-gray-600 leading-relaxed group-hover:text-gray-300 transition-colors text-base">
+            <p className="text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors text-base">
               Step into a warm, welcoming space where you can relax, unwind, and enjoy your time. Our team is dedicated to making every client feel comfortable and valued from the moment they walk through the door.
             </p>
           </div>
 
-          <div className="group p-8 border-gray-200 rounded-md bg-white hover:bg-gray-500 hover:text-white transition-colors">
+          <div className="group p-8 rounded-md bg-white hover:bg-gray-200 hover:text-black transition-colors">
             <h3 className="text-2xl font-bold tracking-tight mb-3">
               Style For All
             </h3>
-            <p className="text-gray-600 leading-relaxed group-hover:text-gray-300 transition-colors text-base">
+            <p className="text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors text-base">
               From classic, timeless cuts to modern, bold transformations, we offer a wide range of services for all ages and genders. Whatever your style or hair type, our expert barbers and stylists have you covered.
             </p>
           </div>

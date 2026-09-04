@@ -38,9 +38,9 @@ export default function Footer() {
                     <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Quick Links</h4>
                     <nav className="flex flex-col gap-2 text-sm">
                         <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                        <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+                        <Link href="/about" className="hover:text-white transition-colors">About</Link>
                         <Link href="/academy" className="hover:text-white transition-colors">Academy</Link>
-                        <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+                        <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
                     </nav>
                 </div>
 
@@ -51,7 +51,7 @@ export default function Footer() {
 
                     <div className="flex gap-3 mt-2">
                         <a
-                            href="https://instagram.com"
+                            href="https://www.instagram.com/mameys_hair_studio/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 flex items-center justify-center bg-gray-900 rounded-full text-gray-300 hover:bg-white hover:text-black transition-colors"

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-
+import { useState, useRef, useEffect } from 'react';
 import {
+  ChevronDown,
   Calendar1,
   WalletMinimal,
   Scissors
@@ -11,7 +11,7 @@ import {
 // Studio Services List
 const SERVICES = [
   { id: '1', name: "Signature Haircut & Styling", duration: '45 mins', price: 800, desc: 'Consultation, scalp massage, precision cut, and wash.' },
-  { id: '2', name: 'Beard Sculpting & Hot Towel', duration: '30 mins', price: 500, desc: 'Precision line-up, hot towel steam, and organic beard oil finish.' },
+  { id: '2', name: 'Beard Sculpting', duration: '30 mins', price: 500, desc: 'Precision line-up and organic beard oil finish.' },
   { id: '3', name: 'The Royal Combo (Cut + Beard)', duration: '75 mins', price: 1200, desc: 'Full signature haircut combined with complete beard sculpting.' },
   { id: '4', name: 'Hair Color & Hair Spa', duration: '60 mins', price: 1500, desc: 'Deep conditioning treatment with premium organic hair tint.' },
 ];
@@ -22,8 +22,14 @@ const TIME_SLOTS = [
   '04:30 PM', '05:30 PM', '06:30 PM'
 ];
 
+const PAYMENT_OPTIONS = [
+  { value: 'STUDIO', label: 'Pay at Studio after service (Cash / Card)' },
+  { value: 'eSewa', label: 'Prepay with eSewa Mobile Wallet' },
+  { value: 'Khalti', label: 'Prepay with Khalti Digital Wallet' },
+];
+
 export default function BookingWizard() {
-  const [step, setStep] = useState(1); // Steps: 1 (Service), 2 (Date & Time), 3 (Details & Payment), 4 (Confirmation)
+  const [step, setStep] = useState(1);
 
   // Selection States
   const [selectedService, setSelectedService] = useState(SERVICES[0]);
@@ -32,13 +38,27 @@ export default function BookingWizard() {
 
   // Customer & Payment States
   const [customer, setCustomer] = useState({ name: '', phone: '', email: '' });
-  const [paymentMethod, setPaymentMethod] = useState('STUDIO'); // 'STUDIO' | 'eSewa' | 'Khalti'
+  const [paymentMethod, setPaymentMethod] = useState('STUDIO');
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const paymentDropdownRef = useRef(null);
+
   const [gatewayAuth, setGatewayAuth] = useState({ gatewayId: '', mpin: '' });
   const [otpCode, setOtpCode] = useState('');
-  const [paymentSubStep, setPaymentSubStep] = useState('DETAILS'); // 'DETAILS' | 'GATEWAY' | 'OTP'
+  const [paymentSubStep, setPaymentSubStep] = useState('DETAILS');
 
   const [loading, setLoading] = useState(false);
   const [bookingRef, setBookingRef] = useState(null);
+
+  // Auto-close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (paymentDropdownRef.current && !paymentDropdownRef.current.contains(e.target)) {
+        setIsPaymentOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Generate next 7 available dates
   const getAvailableDates = () => {
@@ -58,8 +78,6 @@ export default function BookingWizard() {
 
   const datesList = getAvailableDates();
 
-  // Submit appointment to Backend API
-  // Find this inside handleFinalBooking in BookingWizard.jsx:
   const handleFinalBooking = async (paidOnline = false) => {
     setLoading(true);
     try {
@@ -67,13 +85,10 @@ export default function BookingWizard() {
         customerName: customer.name,
         customerPhone: customer.phone,
         customerEmail: customer.email,
-
-        // ⬇️ UPDATED FIELD NAMES TO MATCH BACKEND SCHEMA
-        service: selectedService.name,          // Changed from serviceName
+        service: selectedService.name,
         servicePrice: selectedService.price,
-        appointmentDate: selectedDate,          // Changed from bookingDate
-        timeSlot: selectedTime,                 // Changed from bookingTime
-
+        appointmentDate: selectedDate,
+        timeSlot: selectedTime,
         paymentMethod: paymentMethod,
         paymentStatus: paidOnline ? 'PAID' : 'PENDING',
       };
@@ -89,13 +104,14 @@ export default function BookingWizard() {
       if (!res.ok) throw new Error(data.message || 'Booking failed');
 
       setBookingRef(data.appointment?._id || 'APT-' + Math.floor(100000 + Math.random() * 900000));
-      setStep(4); // Move to instant confirmation screen
+      setStep(4);
     } catch (err) {
       alert(`Booking error: ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="max-w-3xl mx-auto bg-white border border-gray-300 rounded-lg shadow-sm p-6 md:p-10">
 
@@ -142,8 +158,8 @@ export default function BookingWizard() {
                   key={srv.id}
                   onClick={() => setSelectedService(srv)}
                   className={`p-5 rounded-md border cursor-pointer transition-all ${isSelected
-                      ? 'border-black bg-gray-50 ring-1 ring-black'
-                      : 'border-gray-300 hover:border-gray-500 bg-white'
+                    ? 'border-black bg-gray-50 ring-1 ring-black'
+                    : 'border-gray-300 hover:border-gray-500 bg-white'
                     }`}
                 >
                   <div className="flex justify-between items-start mb-2">
@@ -193,8 +209,8 @@ export default function BookingWizard() {
                     key={d.fullDate}
                     onClick={() => setSelectedDate(d.fullDate)}
                     className={`flex-1 min-w-[75px] p-3 rounded-md border text-center transition-all ${isSelected
-                        ? 'border-black bg-black text-white'
-                        : 'border-gray-300 bg-white text-gray-900 hover:border-black'
+                      ? 'border-black bg-black text-white'
+                      : 'border-gray-300 bg-white text-gray-900 hover:border-black'
                       }`}
                   >
                     <p className="text-xs font-bold uppercase">{d.dayName}</p>
@@ -218,8 +234,8 @@ export default function BookingWizard() {
                     type="button"
                     onClick={() => setSelectedTime(time)}
                     className={`py-3 px-4 rounded-md border font-bold text-sm transition-all ${isSelected
-                        ? 'border-black bg-black text-white'
-                        : 'border-gray-300 bg-white text-gray-900 hover:border-black'
+                      ? 'border-black bg-black text-white'
+                      : 'border-gray-300 bg-white text-gray-900 hover:border-black'
                       }`}
                   >
                     {time}
@@ -311,24 +327,61 @@ export default function BookingWizard() {
                 </div>
               </div>
 
+              {/* SMOOTH ANIMATED PAYMENT DROPDOWN */}
               <div>
-                <label className="block text-xs font-bold text-gray-900 uppercase mb-1">Payment Method</label>
-                <select
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full border border-gray-400 p-2.5 rounded text-sm font-bold text-gray-900 focus:outline-none focus:border-black bg-white"
-                >
-                  <option value="STUDIO">Pay at Studio after service (Cash / Card)</option>
-                  <option value="eSewa">Prepay with eSewa Mobile Wallet</option>
-                  <option value="Khalti">Prepay with Khalti Digital Wallet</option>
-                </select>
+                <label className="block text-xs font-bold text-gray-900 uppercase mb-1">
+                  Payment Method
+                </label>
+                <div className="relative" ref={paymentDropdownRef}>
+                  <button
+                    type="button"
+                    onClick={() => setIsPaymentOpen((prev) => !prev)}
+                    className="w-full border border-gray-400 p-2.5 rounded text-sm font-bold text-gray-900 bg-white flex items-center justify-between focus:outline-none focus:border-black transition-all duration-200"
+                  >
+                    <span className="truncate">
+                      {PAYMENT_OPTIONS.find((opt) => opt.value === paymentMethod)?.label}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-gray-600 transition-transform duration-300 ease-in-out shrink-0 ml-2 ${
+                        isPaymentOpen ? 'rotate-180 text-black' : 'rotate-0'
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    className={`absolute z-30 w-full mt-1.5 bg-white border border-gray-300 rounded-md shadow-lg overflow-hidden transition-all duration-200 ease-out origin-top ${
+                      isPaymentOpen
+                        ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto'
+                        : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none'
+                    }`}
+                  >
+                    <div className="py-1">
+                      {PAYMENT_OPTIONS.map((option) => (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => {
+                            setPaymentMethod(option.value);
+                            setIsPaymentOpen(false);
+                          }}
+                          className={`w-full text-left px-3.5 py-2.5 text-sm transition-colors duration-150 flex items-center justify-between ${
+                            paymentMethod === option.value
+                              ? 'bg-gray-100 text-black font-bold'
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-black font-semibold'
+                          }`}
+                        >
+                          <span className="truncate">{option.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Summary Box */}
               <div className="bg-gray-100 border border-gray-300 p-4 rounded-md space-y-2 text-sm font-semibold text-gray-900 mt-4">
-
                 <p className="flex items-center gap-2">
-                  <span> <Scissors className="w-4 h-4 shrink=0"/> </span>
+                  <Scissors className="w-4 h-4 shrink-0" />
                   <strong className="text-black">Service:</strong>
                   {selectedService.name} (Rs. {selectedService.price})
                 </p>
@@ -346,7 +399,6 @@ export default function BookingWizard() {
                     ? 'Pay at Studio'
                     : `Prepay via ${paymentMethod}`}
                 </p>
-
               </div>
 
               <div className="pt-6 border-t border-gray-200 flex justify-between items-center">

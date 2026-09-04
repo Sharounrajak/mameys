@@ -20,7 +20,7 @@ export default function Home() {
           
             <Link
               href="/book"
-              className="inline-block bg-black text-white px-6 py-3 font-semibold rounded-md hover:bg-gray-600 transition"
+              className="inline-block bg-black text-white px-6 py-3 font-semibold rounded-md hover:bg-gray-600 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
             >
               Book an Appointment
             </Link>
@@ -135,7 +135,7 @@ export default function Home() {
                   href="https://www.google.com/maps/dir/?api=1&destination=Mameys+Hair+Studio+Butwal"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex inline-center gap-2 bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-semibold rounded-md hover:bg-gray-300 transition"
+                  className="inline-flex inline-center gap-2 bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-semibold rounded-md hover:bg-gray-300 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
                 >Get Directions</a>
               </div>
             </div>

@@ -3,10 +3,9 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 
 export default function Home() {
-  return(
+  return (
     <div className="w-full bg-white text-black">
-
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* --- HERO SECTION --- */}
         <section className="py-12 flex flex-col gap-8">
@@ -29,11 +28,10 @@ export default function Home() {
           {/* Hero image (salon wide image) */}
           <div className="w-full h-[300px] md:h-[500px] relative rounded-sm overflow-hidden bg-gray-100 mt-4">
             <Image 
-              src="/hero-interior.jpg"
-              alt="mamey's interior"
+              src="/assets/hero-interior.jpg"
+              alt="Mamey's Hair Studio interior"
               fill
               className="object-cover"
-              priority
             />
           </div>
         </section>
@@ -46,7 +44,7 @@ export default function Home() {
           <div className="flex w-max animate-scroll hover:[animation-play-state:paused] gap-6">
             
             <div className="flex gap-6">
-              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden flex-shrink-0">
+              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <Image 
                   src="/portfolio1.jpg" 
                   alt="Men's fade haircut" 
@@ -56,7 +54,7 @@ export default function Home() {
                 />
               </div>
               
-              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden flex-shrink-0">
+              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <Image 
                   src="/portfolio2.jpg" 
                   alt="Women's layered cut" 
@@ -66,7 +64,7 @@ export default function Home() {
                 />
               </div>
               
-              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden flex-shrink-0">
+              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <Image 
                   src="/portfolio3.jpg" 
                   alt="Men's mullet haircut" 
@@ -79,7 +77,7 @@ export default function Home() {
 
             {/* Duplicate for smooth infinite loop */}
             <div className="flex gap-6">
-              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden flex-shrink-0">
+              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <Image 
                   src="/portfolio1.jpg" 
                   alt="Men's fade haircut" 
@@ -89,7 +87,7 @@ export default function Home() {
                 />
               </div>
               
-              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden flex-shrink-0">
+              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <Image 
                   src="/portfolio2.jpg" 
                   alt="Women's layered cut" 
@@ -99,7 +97,7 @@ export default function Home() {
                 />
               </div>
               
-              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden flex-shrink-0">
+              <div className="relative w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <Image 
                   src="/portfolio3.jpg" 
                   alt="Men's mullet haircut" 
@@ -121,7 +119,7 @@ export default function Home() {
               <h2 className="text-4xl font-bold tracking-tight mb-2">Where to find us?</h2>
               
               <div className="flex items-center gap-2">
-                <span> <MapPin className="w-4 h-4 shrink-0"/> </span>
+                <MapPin className="w-4 h-4 shrink-0"/>
                 <p className="font-bold text-lg">MFQF+VJ8, Butwal 32907</p>
               </div>
               
@@ -135,8 +133,10 @@ export default function Home() {
                   href="https://www.google.com/maps/dir/?api=1&destination=Mameys+Hair+Studio+Butwal"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex inline-center gap-2 bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-semibold rounded-md hover:bg-gray-300 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
-                >Get Directions</a>
+                  className="inline-flex items-center gap-2 bg-[#EBEBEB] text-black px-6 py-2.5 text-sm font-semibold rounded-md hover:bg-gray-300 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
+                >
+                  Get Directions
+                </a>
               </div>
             </div>
 
@@ -160,29 +160,27 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-8 tracking-tight">What we offer.</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="group p-8 rounded-md bg-white hover:bg-gray-200 hover:text-black transition-colors">
+              <h3 className="text-2xl font-bold tracking-tight mb-3">
+                Friendly Environment
+              </h3>
+              <p className="text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors text-base">
+                Step into a warm, welcoming space where you can relax, unwind, and enjoy your time. Our team is dedicated to making every client feel comfortable and valued from the moment they walk through the door.
+              </p>
+            </div>
 
-          <div className="group p-8 rounded-md bg-white hover:bg-gray-200 hover:text-black transition-colors">
-            <h3 className="text-2xl font-bold tracking-tight mb-3">
-              Friendly Environment
-            </h3>
-            <p className="text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors text-base">
-              Step into a warm, welcoming space where you can relax, unwind, and enjoy your time. Our team is dedicated to making every client feel comfortable and valued from the moment they walk through the door.
-            </p>
-          </div>
-
-          <div className="group p-8 rounded-md bg-white hover:bg-gray-200 hover:text-black transition-colors">
-            <h3 className="text-2xl font-bold tracking-tight mb-3">
-              Style For All
-            </h3>
-            <p className="text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors text-base">
-              From classic, timeless cuts to modern, bold transformations, we offer a wide range of services for all ages and genders. Whatever your style or hair type, our expert barbers and stylists have you covered.
-            </p>
-          </div>
-
+            <div className="group p-8 rounded-md bg-white hover:bg-gray-200 hover:text-black transition-colors">
+              <h3 className="text-2xl font-bold tracking-tight mb-3">
+                Style For All
+              </h3>
+              <p className="text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors text-base">
+                From classic, timeless cuts to modern, bold transformations, we offer a wide range of services for all ages and genders. Whatever your style or hair type, our expert barbers and stylists have you covered.
+              </p>
+            </div>
           </div>
         </section>
 
-        </main>
+      </main>
     </div>
   );
 }
